@@ -1,0 +1,13 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
+  "id": "ReeCamera",
+  "name": "ReeCamera",
+  "author": "Reezonate",
+  "version": "0.0.1",
+  "description": "",
+  "gameVersion": "1.39.0",
+  "dependsOn": {
+    "BSIPA": "^4.0.5",
+    "CameraUtils": "^1.0.6"
+  }
+}

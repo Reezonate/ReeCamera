@@ -1,0 +1,13 @@
+<horizontal pref-height="6" horizontal-fit="PreferredSize">
+    <horizontal horizontal-fit="PreferredSize">
+        <text id="FieldLabelComponent"/>
+    </horizontal>
+    
+    <horizontal horizontal-fit="PreferredSize">
+        <!--   VALUE START   -->
+        <horizontal pref-width="36" pref-height="6" horizontal-fit="PreferredSize" vertical-fit="PreferredSize">
+            <button id="Button" on-click="ButtonOnClick" pref-width="36" all-uppercase="false" text="-"/>
+        </horizontal>
+        <!--   VALUE END   -->
+    </horizontal>
+</horizontal>

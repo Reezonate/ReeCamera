@@ -1,0 +1,3 @@
+<horizontal pref-height="4.5" horizontal-fit="PreferredSize">
+    <button id="Button" on-click="ButtonOnClick" pref-width="30" all-uppercase="false"/>
+</horizontal>

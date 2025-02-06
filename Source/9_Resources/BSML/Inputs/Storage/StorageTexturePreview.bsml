@@ -1,0 +1,9 @@
+<vertical pref-width="22" pad="1" spacing="1" vertical-fit="PreferredSize">
+    <!--    CHANNEL    -->
+    <vertical pref-height="4" pref-width="20" vertical-fit="PreferredSize" horizontal-fit="PreferredSize">
+        <text-segments id="ChannelSelector" select-cell="OnSelectCell"/>
+    </vertical>
+
+    <!--    IMAGE    -->
+    <image id="Image" src="#GlobalIcon" pref-width="18" pref-height="18" horizontal-fit="PreferredSize" vertical-fit="PreferredSize"/>
+</vertical>

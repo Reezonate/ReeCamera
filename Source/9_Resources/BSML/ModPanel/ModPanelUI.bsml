@@ -1,0 +1,35 @@
+<vertical id="Root" vertical-fit="PreferredSize">
+    <horizontal spacing="1" horizontal-fit="PreferredSize">
+        <button pref-width="18" text="Reload" on-click="ReloadOnClick"/>
+        <button pref-width="18" text="Save All" on-click="SaveAllOnClick"/>
+    </horizontal>
+
+    <horizontal pref-height="1" pref-width="80" horizontal-fit="PreferredSize" bg="round-rect-panel"/>
+
+    <horizontal pref-height="56">
+        <vertical spacing="1" vertical-fit="PreferredSize">
+            <vertical pad="2" spacing="1" pref-width="70" vertical-fit="PreferredSize" bg="round-rect-panel">
+                <horizontal pref-height="5">
+                    <text text="VR" font-size="5.0" font-color="#999999" align="Center"/>
+                </horizontal>
+                <macro.as-host host="MainMenuVRPresetField">
+                    <macro.reparent transform="UIComponent"/>
+                </macro.as-host>
+                <macro.as-host host="GameplayVRPresetField">
+                    <macro.reparent transform="UIComponent"/>
+                </macro.as-host>
+            </vertical>
+            <vertical pad="2" spacing="1" pref-width="70" vertical-fit="PreferredSize" bg="round-rect-panel">
+                <horizontal pref-height="5">
+                    <text text="FPFC" font-size="5.0" font-color="#999999" align="Center"/>
+                </horizontal>
+                <macro.as-host host="MainMenuFPFCPresetField">
+                    <macro.reparent transform="UIComponent"/>
+                </macro.as-host>
+                <macro.as-host host="GameplayFPFCPresetField">
+                    <macro.reparent transform="UIComponent"/>
+                </macro.as-host>
+            </vertical>
+        </vertical>
+    </horizontal>
+</vertical>

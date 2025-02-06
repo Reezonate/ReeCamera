@@ -1,0 +1,21 @@
+<vertical pref-width="52" pad="1" spacing="1" vertical-fit="PreferredSize">
+    <!--    HEADER    -->
+    <horizontal pad-left="2" pad-right="2" horizontal-fit="PreferredSize" bg="round-rect-panel">
+        <text id="HeaderText" align="Center"/>
+    </horizontal>
+
+    <horizontal spacing="1" horizontal-fit="PreferredSize">
+        <!--    LIST    -->
+        <horizontal pad="1" bg="round-rect-panel">
+            <list pref-width="45" id="OptionsList" cell-size="5" select-cell='OnOptionSelected' visible-cells="6" list-style="Simple" show-scrollbar="true" stick-scrolling="true"/>
+        </horizontal>
+    </horizontal>
+
+    <horizontal spacing="1" horizontal-fit="PreferredSize">
+        <!--    CANCEL / APPLY    -->
+        <horizontal id="ButtonsBackground" pad-left="2" pad-right="2" spacing="1" horizontal-fit="PreferredSize" bg="round-rect-panel">
+            <button text="Cancel" id="CancelButton" on-click="CancelOnClick" pref-width="13"/>
+            <button text="Apply" id="ApplyButton" on-click="ApplyOnClick" pref-width="13"/>
+        </horizontal>
+    </horizontal>
+</vertical>
