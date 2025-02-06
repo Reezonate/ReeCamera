@@ -36,6 +36,9 @@ namespace ReeCamera {
 
         #region Events
 
+        private Matrix4x4 _noOffsetProjectionMatrix;
+        private bool _hasOffset;
+
         private void OnNameChanged(string value, ObservableValueState state) {
             gameObject.name = value;
         }
@@ -44,12 +47,24 @@ namespace ReeCamera {
             if (AutoCameraRegistrator != null) {
                 AutoCameraRegistrator.enabled = !value.IgnoreCameraUtils;
             }
-            
+
+            if (_hasOffset) {
+                Camera.projectionMatrix = _noOffsetProjectionMatrix;
+            }
+
             Camera.fieldOfView = value.FieldOfView;
             Camera.nearClipPlane = value.NearClipPlane;
             Camera.farClipPlane = value.FarClipPlane;
             Camera.orthographic = value.Orthographic;
             Camera.orthographicSize = value.OrthographicSize;
+
+            _hasOffset = value.CenterOffset != Vector2.zero;
+            if (!_hasOffset) return;
+            
+            var proj = _noOffsetProjectionMatrix = Camera.projectionMatrix;
+            proj.m02 += value.CenterOffset.x;
+            proj.m12 += value.CenterOffset.y;
+            Camera.projectionMatrix = proj;
         }
 
         private void OnLayerFilterChanged(LayerFilter value, ObservableValueState state) {

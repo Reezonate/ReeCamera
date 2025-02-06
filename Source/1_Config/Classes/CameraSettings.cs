@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using UnityEngine;
 
 namespace ReeCamera {
     public struct CameraSettings {
@@ -8,6 +9,7 @@ namespace ReeCamera {
         public float FarClipPlane;
         public bool Orthographic;
         public float OrthographicSize;
+        public Vector2 CenterOffset;
 
         [JsonConstructor]
         public CameraSettings(int _) {
@@ -17,6 +19,7 @@ namespace ReeCamera {
             FarClipPlane = 1000f;
             Orthographic = false;
             OrthographicSize = 2.0f;
+            CenterOffset = Vector2.zero;
         }
 
         public static CameraSettings Default => new CameraSettings(0);
