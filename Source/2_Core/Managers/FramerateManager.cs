@@ -75,10 +75,10 @@ namespace ReeCamera {
             var screenRefreshRate = Screen.currentResolution.refreshRate;
 
             if (_settings.VSync) {
-                QualitySettings.vSyncCount = 1;
+                UnityEngine.QualitySettings.vSyncCount = 1;
                 ReeSabersInterop.SetTargetFramerate(screenRefreshRate);
             } else {
-                QualitySettings.vSyncCount = 0;
+                UnityEngine.QualitySettings.vSyncCount = 0;
 
                 if (_settings.TargetFramerate > 0) {
                     Application.targetFrameRate = _settings.TargetFramerate;

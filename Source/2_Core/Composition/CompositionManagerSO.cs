@@ -49,33 +49,38 @@ namespace ReeCamera {
         public Composition CreateComposition(
             IEnumerable<OverlayCamera> cameras,
             int screenWidth,
-            int screenHeight,
-            int antiAliasing
+            int screenHeight
         ) {
             var compositionCameras = new List<CompositionCamera>();
 
             foreach (var overlayCamera in cameras) {
                 if (compositionCameras.Count >= MaxCameras) break;
-                compositionCameras.Add(CreateCompositionCamera(overlayCamera, screenWidth, screenHeight, antiAliasing));
+                compositionCameras.Add(CreateCompositionCamera(overlayCamera, screenWidth, screenHeight));
             }
 
             var compositionMaterial = CreateCompositionMaterial(compositionCameras);
             return new Composition(compositionCameras, compositionMaterial, screenWidth, screenHeight);
         }
 
-        private CompositionCamera CreateCompositionCamera(in OverlayCamera overlayCamera, int screenWidth, int screenHeight, int antiAliasing) {
+        private CompositionCamera CreateCompositionCamera(in OverlayCamera overlayCamera, int screenWidth, int screenHeight) {
             AdjustRectangle(
                 overlayCamera.ScreenRect, screenWidth, screenHeight,
                 out var pixelAdjustedRect, out var textureWidth, out var textureHeight
             );
 
+            textureWidth = Mathf.RoundToInt(textureWidth * overlayCamera.RenderScale);
+            textureHeight = Mathf.RoundToInt(textureHeight * overlayCamera.RenderScale);
+
+            if (textureWidth < 1) textureWidth = 1;
+            if (textureHeight < 1) textureHeight = 1;
+
             var camera = overlayCamera.Camera;
-            var targetTexture = CreateCameraTargetTexture(textureWidth, textureHeight, antiAliasing);
+            var targetTexture = CreateCameraTargetTexture(textureWidth, textureHeight, overlayCamera.AntiAliasing);
             var clearMaterial = CreateClearMaterial(pixelAdjustedRect, overlayCamera.BackgroundColor, overlayCamera.BackgroundBlurLevel, overlayCamera.BackgroundBlurScale);
 
             camera.enabled = false;
-            camera.targetTexture = targetTexture;
             camera.clearFlags = CameraClearFlags.SolidColor;
+            camera.gameObject.GetComponent<ICameraController>()?.SetTargetTexture(targetTexture);
 
             CommandBuffer commandBuffer;
             if (overlayCamera.IsTransparent) {
@@ -145,7 +150,7 @@ namespace ReeCamera {
             return commandBuffer;
         }
 
-        private static void AdjustRectangle(
+        public static void AdjustRectangle(
             Vector4 rawRect, int screenWidth, int screenHeight,
             out Vector4 pixelAdjustedRect, out int textureWidth, out int textureHeight
         ) {

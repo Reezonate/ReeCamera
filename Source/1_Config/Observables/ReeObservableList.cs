@@ -1,7 +1,37 @@
+using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ReeCamera {
     public class ReeObservableList<T> {
+        #region JsonConverter
+
+        public class Converter : JsonConverter<ReeObservableList<T>> {
+            public override void WriteJson(JsonWriter writer, ReeObservableList<T> value, JsonSerializer serializer) {
+                serializer.Serialize(writer, value.Items);
+            }
+
+            public override ReeObservableList<T> ReadJson(
+                JsonReader reader,
+                Type objectType,
+                ReeObservableList<T> existingValue,
+                bool hasExistingValue,
+                JsonSerializer serializer
+            ) {
+                var items = serializer.Deserialize<T[]>(reader);
+                if (!hasExistingValue) {
+                    var result = new ReeObservableList<T>();
+                    result.AddFrom(items);
+                    return result;
+                }
+
+                existingValue.AddFrom(items);
+                return existingValue;
+            }
+        }
+
+        #endregion
+
         #region Collection
 
         private readonly List<T> _items = new List<T>();

@@ -7,12 +7,10 @@ namespace ReeCamera {
         #region Impl
 
         public const int FormatVersion = 1;
-        public MainCameraConfig MainCamera { get; }
-        public IReadOnlyList<SecondaryCameraConfig> SecondaryCameras { get; }
+        public IReadOnlyList<SceneLayoutConfig> LayoutConfigs { get; }
 
-        public ScenePresetV1(MainCameraConfig mainCamera, IReadOnlyList<SecondaryCameraConfig> secondaryCameras) {
-            MainCamera = mainCamera;
-            SecondaryCameras = secondaryCameras;
+        public ScenePresetV1(IReadOnlyList<SceneLayoutConfig> layoutConfigs) {
+            LayoutConfigs = layoutConfigs;
         }
 
         #endregion
@@ -23,8 +21,7 @@ namespace ReeCamera {
             return new JObject {
                 { "FormatVersion", FormatVersion },
                 { "ModVersion", Plugin.ModVersion },
-                { "MainCamera", JObject.FromObject(MainCamera, ConfigUtils.DefaultSerializer) },
-                { "SecondaryCameras", JArray.FromObject(SecondaryCameras, ConfigUtils.DefaultSerializer) }
+                { "Layouts", JArray.FromObject(LayoutConfigs, ConfigUtils.DefaultSerializer) }
             };
         }
 
@@ -41,8 +38,7 @@ namespace ReeCamera {
 
             failReason = null;
             preset = new ScenePresetV1(
-                input.DeserializeOrDefault("MainCamera", () => new MainCameraConfig()),
-                input.DeserializeOrDefault<IReadOnlyList<SecondaryCameraConfig>>("SecondaryCameras", Array.Empty<SecondaryCameraConfig>)
+                input.DeserializeOrDefault<IReadOnlyList<SceneLayoutConfig>>("Layouts", Array.Empty<SceneLayoutConfig>)
             );
             return true;
         }

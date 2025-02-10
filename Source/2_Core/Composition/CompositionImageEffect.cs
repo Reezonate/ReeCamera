@@ -9,7 +9,7 @@ namespace ReeCamera {
 
         private readonly Dictionary<Camera, OverlayCamera> _cameras = new Dictionary<Camera, OverlayCamera>();
 
-        public void SetupCamera(Camera cam, in CompositionSettings settings) {
+        public void SetupCamera(Camera cam, in CompositionSettings settings, in QualitySettings qualitySettings) {
             var maskTexture = CustomTexturesStorage.Instance.LoadOrError(settings.MaskTextureId);
             var screenRectV4 = new Vector4(settings.ScreenRect.x, settings.ScreenRect.y, settings.ScreenRect.width, settings.ScreenRect.height);
             _cameras[cam] = new OverlayCamera {
@@ -19,7 +19,9 @@ namespace ReeCamera {
                 IsTransparent = settings.Transparent,
                 BackgroundColor = settings.BackgroundColor,
                 BackgroundBlurLevel = settings.BackgroundBlurLevel,
-                BackgroundBlurScale = settings.BackgroundBlurScale
+                BackgroundBlurScale = settings.BackgroundBlurScale,
+                AntiAliasing = qualitySettings.AntiAliasing,
+                RenderScale = qualitySettings.RenderScale
             };
             MarkIsDirty();
         }
@@ -33,20 +35,6 @@ namespace ReeCamera {
             if (!_cameras.ContainsKey(cam)) return;
             _cameras.Remove(cam);
             MarkIsDirty();
-        }
-
-        #endregion
-
-        #region Settings
-
-        private int _antiAliasing;
-
-        public int AntiAliasing {
-            get => _antiAliasing;
-            set {
-                _antiAliasing = value;
-                MarkIsDirty();
-            }
         }
 
         #endregion
@@ -72,7 +60,7 @@ namespace ReeCamera {
         private void UpdateComposition(int screenWidth, int screenHeight) {
             if (!_isDirty && _composition != null && _composition.VerifyScreenSize(screenWidth, screenHeight)) return;
             Dispose();
-            _composition = BundleLoader.CompositionManager.CreateComposition(_cameras.Values, screenWidth, screenHeight, AntiAliasing);
+            _composition = BundleLoader.CompositionManager.CreateComposition(_cameras.Values, screenWidth, screenHeight);
             _isDirty = false;
         }
 

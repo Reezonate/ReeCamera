@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace ReeCamera {
-    public abstract class AbstractCameraController<T> : MonoBehaviour where T : AbstractCameraConfig {
+    public abstract class AbstractCameraController<T> : MonoBehaviour, ICameraController where T : AbstractCameraConfig {
         #region Construct / Init / Dispose
 
         public T Config { get; private set; }
@@ -32,24 +32,31 @@ namespace ReeCamera {
             Config.LayerFilterOV.RemoveStateListener(OnLayerFilterChanged);
         }
 
+        protected virtual void Update() {
+            UpdateFrustumIfDirty();
+        }
+
         #endregion
 
         #region Events
 
-        private Matrix4x4 _noOffsetProjectionMatrix;
+        private CameraSettings _settings;
         private bool _hasOffset;
+
+        public void SetTargetTexture(RenderTexture texture) {
+            Camera.targetTexture = texture;
+            MarkFrustumDirty();
+        }
 
         private void OnNameChanged(string value, ObservableValueState state) {
             gameObject.name = value;
         }
 
         private void OnCameraSettingChanged(CameraSettings value, ObservableValueState state) {
+            _settings = value;
+
             if (AutoCameraRegistrator != null) {
                 AutoCameraRegistrator.enabled = !value.IgnoreCameraUtils;
-            }
-
-            if (_hasOffset) {
-                Camera.projectionMatrix = _noOffsetProjectionMatrix;
             }
 
             Camera.fieldOfView = value.FieldOfView;
@@ -58,17 +65,32 @@ namespace ReeCamera {
             Camera.orthographic = value.Orthographic;
             Camera.orthographicSize = value.OrthographicSize;
 
-            _hasOffset = value.CenterOffset != Vector2.zero;
-            if (!_hasOffset) return;
-            
-            var proj = _noOffsetProjectionMatrix = Camera.projectionMatrix;
-            proj.m02 += value.CenterOffset.x;
-            proj.m12 += value.CenterOffset.y;
-            Camera.projectionMatrix = proj;
+            MarkFrustumDirty();
         }
 
         private void OnLayerFilterChanged(LayerFilter value, ObservableValueState state) {
             Camera.cullingMask = value.CullingMask;
+        }
+
+        #endregion
+
+        #region Frustum
+
+        private bool _frustumDirty;
+
+        private void MarkFrustumDirty() {
+            _frustumDirty = true;
+        }
+
+        private void UpdateFrustumIfDirty() {
+            if (!_frustumDirty) return;
+            _frustumDirty = false;
+
+            Camera.ResetProjectionMatrix();
+            var proj = Camera.projectionMatrix;
+            proj.m02 += _settings.CenterOffset.x;
+            proj.m12 += _settings.CenterOffset.y;
+            Camera.projectionMatrix = proj;
         }
 
         #endregion

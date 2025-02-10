@@ -6,8 +6,6 @@ namespace ReeCamera {
     public class MainPluginConfig : ConfigSingleton<MainPluginConfig> {
         #region Values
 
-        public readonly OutputConfig Output = new OutputConfig();
-
         public readonly VRSceneConfig MainMenuConfigVR = VRSceneConfig.Default;
         public readonly VRSceneConfig GameplayConfigVR = VRSceneConfig.Default;
 

@@ -1,22 +1,22 @@
 using Newtonsoft.Json;
 
 namespace ReeCamera {
-    public class VRSceneConfig: AbstractSceneConfig {
+    public class VRSceneConfig : AbstractSceneConfig {
         #region Default
 
         public static VRSceneConfig Default => new VRSceneConfig();
 
         #endregion
     }
-    
-    public class FPFCSceneConfig: AbstractSceneConfig {
+
+    public class FPFCSceneConfig : AbstractSceneConfig {
         #region Values
 
         [JsonProperty("FramerateSettings"), JsonConverter(typeof(ObservableValue<FramerateSettings>.Converter))]
         public ObservableValue<FramerateSettings> FramerateSettingsOV = new ObservableValue<FramerateSettings>(FramerateSettings.Default);
 
         #endregion
-        
+
         #region Default
 
         public static FPFCSceneConfig Default => new FPFCSceneConfig();
@@ -35,10 +35,7 @@ namespace ReeCamera {
         #region Non-Serializable Properties
 
         [JsonIgnore]
-        public readonly MainCameraConfig MainCameraConfig = new MainCameraConfig();
-
-        [JsonIgnore]
-        public readonly ReeObservableList<SecondaryCameraConfig> SecondaryConfigs = new ReeObservableList<SecondaryCameraConfig>();
+        public readonly ReeObservableList<SceneLayoutConfig> LayoutConfigs = new ReeObservableList<SceneLayoutConfig>();
 
         #endregion
 
@@ -69,15 +66,11 @@ namespace ReeCamera {
         }
 
         public ScenePresetV1 CreatePreset() {
-            return new ScenePresetV1(
-                MainCameraConfig,
-                SecondaryConfigs.Items
-            );
+            return new ScenePresetV1(LayoutConfigs.Items);
         }
 
         public void ApplyPreset(IScenePreset preset) {
-            MainCameraConfig.CopyFrom(preset.MainCamera);
-            SecondaryConfigs.CopyFrom(preset.SecondaryCameras);
+            LayoutConfigs.CopyFrom(preset.LayoutConfigs);
         }
 
         #endregion

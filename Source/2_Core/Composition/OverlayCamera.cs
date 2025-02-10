@@ -9,5 +9,7 @@ namespace ReeCamera {
         public Color BackgroundColor;
         public int BackgroundBlurLevel;
         public float BackgroundBlurScale;
+        public int AntiAliasing;
+        public float RenderScale;
     }
 }

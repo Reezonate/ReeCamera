@@ -10,10 +10,7 @@ namespace ReeCamera {
 
         public static readonly BuiltInPresetStorageOption EmptyPresetOption = new BuiltInPresetStorageOption(
             "", "Default",
-            new ScenePresetV1(
-                MainCameraConfig.Default,
-                Array.Empty<SecondaryCameraConfig>()
-            )
+            new ScenePresetV1(new[] { SceneLayoutConfig.Default })
         );
 
         #endregion
