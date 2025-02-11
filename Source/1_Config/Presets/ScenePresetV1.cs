@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
@@ -38,7 +37,7 @@ namespace ReeCamera {
 
             failReason = null;
             preset = new ScenePresetV1(
-                input.DeserializeOrDefault<IReadOnlyList<SceneLayoutConfig>>("Layouts", Array.Empty<SceneLayoutConfig>)
+                input.DeserializeOrDefault<IReadOnlyList<SceneLayoutConfig>>("Layouts", () => new[] { SceneLayoutConfig.Default })
             );
             return true;
         }
