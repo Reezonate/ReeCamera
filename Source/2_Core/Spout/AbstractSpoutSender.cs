@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace ReeCamera.Spout {
@@ -28,10 +27,7 @@ namespace ReeCamera.Spout {
         private bool _blitMaterialInitialized;
         private bool _pluginInitialized;
 
-        private static readonly int ClearAlpha = Shader.PropertyToID("_ClearAlpha");
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern int GetLastError();
+        private const string ClearAlphaKeyword = "CLEAR_ALPHA";
 
         private void SendRenderTexture(Texture source) {
             InitializePlugin(source.width, source.height);
@@ -40,8 +36,11 @@ namespace ReeCamera.Spout {
             if (!_sharedTextureInitialized) return;
             InitializeBlitMaterial();
 
-            // Blit shader parameters
-            _blitMaterial.SetFloat(ClearAlpha, alphaSupport ? 0 : 1);
+            if (alphaSupport) {
+                _blitMaterial.DisableKeyword(ClearAlphaKeyword);
+            } else {
+                _blitMaterial.EnableKeyword(ClearAlphaKeyword);
+            }
 
             var tempRT = RenderTexture.GetTemporary(_sharedTexture.width, _sharedTexture.height);
             Graphics.Blit(source, tempRT, _blitMaterial, 0);
@@ -53,11 +52,7 @@ namespace ReeCamera.Spout {
             if (_pluginInitialized) return;
 
             _plugin = PluginEntry.CreateSender(channelName, width, height);
-            if (_plugin == IntPtr.Zero) {
-                int errorCode = GetLastError();
-                Plugin.Log.Notice($"Error: {errorCode}");
-                return; // Spout may not be ready.
-            }
+            if (_plugin == IntPtr.Zero) return; // Spout may not be ready.
 
             _pluginInitialized = true;
         }
