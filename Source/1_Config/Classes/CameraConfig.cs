@@ -16,9 +16,6 @@ namespace ReeCamera {
         [JsonProperty("MovementConfig"), JsonConverter(typeof(ObservableValue<MovementConfig>.Converter))]
         public ObservableValue<MovementConfig> MovementConfigOV = new ObservableValue<MovementConfig>(MovementConfig.Default);
 
-        [JsonProperty("FollowTargetConfig"), JsonConverter(typeof(ObservableValue<FollowTargetConfig>.Converter))]
-        public ObservableValue<FollowTargetConfig> FollowTargetConfigOV = new ObservableValue<FollowTargetConfig>(FollowTargetConfig.Default);
-
         // [JsonProperty("PhysicsLinkSettings"), JsonConverter(typeof(ObservableValue<PhysicsLinkSettings>.Converter))]
         // public ObservableValue<PhysicsLinkSettings> PhysicsLinkSettingsOV = new ObservableValue<PhysicsLinkSettings>(PhysicsLinkSettings.Default);
 
@@ -34,7 +31,6 @@ namespace ReeCamera {
             CameraSettingsOV.SetValue(other.CameraSettingsOV.Value, other.CameraSettingsOV.LastChangeSource);
             QualitySettingsOV.SetValue(other.QualitySettingsOV.Value, other.QualitySettingsOV.LastChangeSource);
             MovementConfigOV.SetValue(other.MovementConfigOV.Value, other.MovementConfigOV.LastChangeSource);
-            FollowTargetConfigOV.SetValue(other.FollowTargetConfigOV.Value, other.FollowTargetConfigOV.LastChangeSource);
             // PhysicsLinkSettingsOV.SetValue(other.PhysicsLinkSettingsOV.Value, other.PhysicsLinkSettingsOV.LastChangeSource);
             LayerFilterOV.SetValue(other.LayerFilterOV.Value, other.LayerFilterOV.LastChangeSource);
         }

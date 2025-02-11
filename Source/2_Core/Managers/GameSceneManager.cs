@@ -16,14 +16,14 @@ namespace ReeCamera {
             switch (PluginState.LaunchTypeOV.Value) {
                 case LaunchType.VR: {
                     var config = MainPluginConfig.Instance.GameplayConfigVR;
-                    ReeSceneController.Instantiate(transform, config);
+                    ReeSceneController.Instantiate(_playerTransforms._originTransform, config);
                     break;
                 }
                 case LaunchType.FPFC:
                 default: {
                     var config = MainPluginConfig.Instance.GameplayConfigFPFC;
                     FramerateManager.Instantiate(gameObject, config.FramerateSettingsOV);
-                    ReeSceneController.Instantiate(transform, config);
+                    ReeSceneController.Instantiate(_playerTransforms._originTransform, config);
                     break;
                 }
             }

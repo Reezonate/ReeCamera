@@ -23,14 +23,12 @@ namespace ReeCamera {
 
         private void Start() {
             Config.MovementConfigOV.AddStateListener(OnMovementConfigChanged, this);
-            Config.FollowTargetConfigOV.AddStateListener(OnTargetSettingsChanged, this);
             // Config.PhysicsLinkSettingsOV.AddStateListener(OnPhysicsLinkSettingChanged, this);
             PluginState.NoteWasCutEvent += OnNoteWasCut;
         }
 
         private void OnDestroy() {
             Config.MovementConfigOV.RemoveStateListener(OnMovementConfigChanged);
-            Config.FollowTargetConfigOV.RemoveStateListener(OnTargetSettingsChanged);
             // Config.PhysicsLinkSettingsOV.RemoveStateListener(OnPhysicsLinkSettingChanged);
             PluginState.NoteWasCutEvent -= OnNoteWasCut;
         }
@@ -56,27 +54,24 @@ namespace ReeCamera {
         #region Movement
 
         private MovementConfig _movementConfig = MovementConfig.Default;
-        private ReeTransform _initialPose = ReeTransform.Identity;
         private int _resetFrames;
 
         private void OnMovementConfigChanged(MovementConfig value, ObservableValueState state) {
             _movementConfig = value;
-            _initialPose = new ReeTransform(value.InitialPosition, Quaternion.Euler(value.InitialRotation));
             _resetFrames = 5;
         }
 
         private void UpdateMovement() {
             if (_resetFrames > 0) {
-                ApplyPose(_initialPose);
                 ResetTarget();
                 ResetPhysicsPose();
                 _resetFrames -= 1;
             }
 
+            UpdateTargetPose();
+
             switch (_movementConfig.MovementType) {
                 case MovementType.FollowTarget: {
-                    UpdateTargetPose();
-
                     if (_physicsLinkSettings.UsePhysics) {
                         UpdatePhysicsPose();
                         ApplyPose(_physicsPose);
@@ -88,7 +83,7 @@ namespace ReeCamera {
                 }
                 case MovementType.Static:
                 default: {
-                    ApplyPose(_initialPose);
+                    ApplyPose(_targetPose);
                     break;
                 }
             }
@@ -102,56 +97,70 @@ namespace ReeCamera {
 
         #region Target
 
-        private FollowTargetConfig _targetSettings = FollowTargetConfig.Default;
         private ReeTransform _targetPose;
-
-        private void OnTargetSettingsChanged(FollowTargetConfig value, ObservableValueState state) {
-            _targetSettings = value;
-        }
+        private ReeTransform _tempSmoothPose;
 
         public void ResetTarget() {
-            _targetPose = GetTargetPose();
+            GetTargetPoses(out _tempSmoothPose, out var localOffset);
+            _targetPose = _tempSmoothPose;
+            _targetPose.Position += _tempSmoothPose.Rotation * localOffset.Position;
         }
 
-        private ReeTransform GetTargetPose() {
-            var parentPose = ReeTransform.FromTransform(transform.parent);
-            var targetWorldPose = PluginState.FirstPersonPoseOV.Value;
+        private void GetTargetPoses(out ReeTransform smoothPose, out ReeTransform localOffset) {
+            switch (_movementConfig.MovementType) {
+                case MovementType.Static: {
+                    smoothPose = ReeTransform.Identity;
+                    localOffset = ReeTransform.Identity;
+                    break;
+                }
+                case MovementType.FollowTarget:
+                default: {
+                    var parentPose = ReeTransform.FromTransform(transform.parent);
+                    var targetWorldPose = PluginState.FirstPersonPoseOV.Value;
 
-            var localPose = new ReeTransform(
-                parentPose.WorldToLocalPosition(targetWorldPose.Position),
-                parentPose.WorldToLocalRotation(targetWorldPose.Rotation)
-            );
+                    smoothPose = new ReeTransform(
+                        parentPose.WorldToLocalPosition(targetWorldPose.Position),
+                        parentPose.WorldToLocalRotation(targetWorldPose.Rotation)
+                    );
+                    break;
+                }
+            }
 
-            switch (_targetSettings.OffsetType) {
+            switch (_movementConfig.OffsetType) {
                 case OffsetType.Local: {
-                    localPose.Position += localPose.Rotation * _targetSettings.PositionOffset;
+                    smoothPose.Rotation *= Quaternion.Euler(_movementConfig.RotationOffset);
+                    localOffset = new ReeTransform(
+                        _movementConfig.PositionOffset,
+                        Quaternion.identity
+                    );
                     break;
                 }
                 case OffsetType.Global:
                 default: {
-                    localPose.Position += _targetSettings.PositionOffset;
+                    smoothPose.Position += _movementConfig.PositionOffset;
+                    smoothPose.Rotation *= Quaternion.Euler(_movementConfig.RotationOffset);
+                    localOffset = ReeTransform.Identity;
                     break;
                 }
             }
 
-
-            if (_targetSettings.ForceUpright) {
-                localPose.Rotation = Quaternion.LookRotation(localPose.Forward, Vector3.up);
+            if (_movementConfig.ForceUpright) {
+                smoothPose.Rotation = Quaternion.LookRotation(smoothPose.Forward, Vector3.up);
             }
-
-            return localPose;
         }
 
         private void UpdateTargetPose() {
-            var tmp = GetTargetPose();
+            GetTargetPoses(out var smoothPose, out var localOffset);
 
-            _targetPose.Position = _targetSettings.PositionalSmoothing > 0
-                ? Vector3.Lerp(_targetPose.Position, tmp.Position, Time.deltaTime * _targetSettings.PositionalSmoothing)
-                : tmp.Position;
-
-            _targetPose.Rotation = _targetSettings.RotationalSmoothing > 0
-                ? Quaternion.Lerp(_targetPose.Rotation, tmp.Rotation, Time.deltaTime * _targetSettings.RotationalSmoothing)
-                : tmp.Rotation;
+            _tempSmoothPose.Position = _movementConfig.PositionalSmoothing > 0
+                ? Vector3.Lerp(_tempSmoothPose.Position, smoothPose.Position, Time.deltaTime * _movementConfig.PositionalSmoothing)
+                : smoothPose.Position;
+            _tempSmoothPose.Rotation = _movementConfig.RotationalSmoothing > 0
+                ? Quaternion.Lerp(_tempSmoothPose.Rotation, smoothPose.Rotation, Time.deltaTime * _movementConfig.RotationalSmoothing)
+                : smoothPose.Rotation;
+            
+            _targetPose = _tempSmoothPose;
+            _targetPose.Position += _tempSmoothPose.Rotation * localOffset.Position;
         }
 
         #endregion

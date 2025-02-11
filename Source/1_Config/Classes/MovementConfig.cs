@@ -4,14 +4,22 @@ using UnityEngine;
 namespace ReeCamera {
     public struct MovementConfig {
         public MovementType MovementType;
-        public Vector3 InitialPosition;
-        public Vector3 InitialRotation;
+        public OffsetType OffsetType;
+        public Vector3 PositionOffset;
+        public Vector3 RotationOffset;
+        public bool ForceUpright;
+        public float PositionalSmoothing;
+        public float RotationalSmoothing;
 
         [JsonConstructor]
         public MovementConfig(int _) {
             MovementType = MovementType.FollowTarget;
-            InitialPosition = new Vector3(0.0f, 1.6f, -1.0f);
-            InitialRotation = new Vector3(0.0f, 0.0f, 0.0f);
+            OffsetType = OffsetType.Global;
+            PositionOffset = new Vector3(0.0f, 0.0f, 0.0f);
+            RotationOffset = new Vector3(0.0f, 0.0f, 0.0f);
+            ForceUpright = false;
+            PositionalSmoothing = 0.0f;
+            RotationalSmoothing = 0.0f;
         }
 
         public static MovementConfig Default => new MovementConfig(0);
