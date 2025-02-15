@@ -31,43 +31,38 @@ namespace ReeCamera {
         private IObservableValue<Rect> _screenRectOV;
         private IObservableValue<bool> _isVisibleOV;
         private TextureSpoutSender _spoutSender;
-        private Canvas _screenCanvas;
         private RawImage _screenImage;
 
         private void Awake() {
             _spoutSender = gameObject.AddComponent<TextureSpoutSender>();
             _spoutSender.blitShader = BundleLoader.Materials.spoutBlitMaterial.shader;
             _spoutSender.enabled = false;
+        }
 
-            var canvasGo = new GameObject("ScreenCanvas");
-            _screenCanvas = canvasGo.AddComponent<Canvas>();
-            _screenCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            _screenCanvas.enabled = false;
-
+        protected override void Start() {
+            base.Start();
+            
             var imageGo = new GameObject("ScreenImage");
-            imageGo.transform.SetParent(canvasGo.transform, false);
             _screenImage = imageGo.AddComponent<RawImage>();
             _screenImage.material = BundleLoader.Materials.screenImageMaterial;
             _screenImage.rectTransform.anchorMin = new Vector2(0.0f, 0.0f);
             _screenImage.rectTransform.anchorMax = new Vector2(1.0f, 1.0f);
             _screenImage.rectTransform.offsetMin = new Vector2(0.0f, 0.0f);
             _screenImage.rectTransform.offsetMax = new Vector2(0.0f, 0.0f);
-            
-            DontDestroyOnLoad(canvasGo);
-        }
-
-        protected override void Start() {
-            base.Start();
+            _screenImage.enabled = false;
 
             _screenRectOV.AddStateListener(OnScreenRectChanged, this);
             _isVisibleOV.AddStateListener(OnIsVisibleChanged, this);
             Config.SpoutSettingsOV.AddStateListener(OnSpoutSettingsChanged, this);
             Config.QualitySettingsOV.AddStateListener(OnQualitySettingsChanged, this);
             PluginState.ScreenResolution.AddStateListener(OnScreenResolutionChanged, this);
+            PluginState.ScreenCanvasOV.AddStateListener(OnScreenCanvasChanged, this);
         }
 
         protected override void OnDestroy() {
             base.OnDestroy();
+            
+            Destroy(_screenImage.gameObject);
 
             _screenRectOV.RemoveStateListener(OnScreenRectChanged);
             _isVisibleOV.RemoveStateListener(OnIsVisibleChanged);
@@ -75,16 +70,11 @@ namespace ReeCamera {
             Config.QualitySettingsOV.RemoveStateListener(OnQualitySettingsChanged);
             PluginState.ScreenResolution.RemoveStateListener(OnScreenResolutionChanged);
 
-            if (_screenCanvas?.gameObject != null) {
-                Destroy(_screenCanvas.gameObject);
-            }
-
             DisposeOutputTexture();
         }
 
         protected override void Update() {
             UpdateOutputTextureIfDirty();
-            UpdateScreenIfDirty();
             UpdateSpoutIfDirty();
             base.Update();
         }
@@ -99,27 +89,28 @@ namespace ReeCamera {
         private Rect _screenRect = new Rect(0, 0, 1, 1);
 
         private void OnIsVisibleChanged(bool value, ObservableValueState state) {
-            _screenCanvas.gameObject.SetActive(value);
+            _screenImage.gameObject.SetActive(value);
+        }
+
+        private void OnScreenCanvasChanged(Canvas value, ObservableValueState state) {
+            _screenImage.transform.SetParent(value.transform, false);
         }
 
         private void OnScreenRectChanged(Rect value, ObservableValueState state) {
             _screenRect = value;
             MarkOutputTextureDirty();
-            MarkScreenDirty();
             MarkSpoutDirty();
         }
 
         private void OnQualitySettingsChanged(QualitySettings value, ObservableValueState state) {
             _qualitySettings = value;
             MarkOutputTextureDirty();
-            MarkScreenDirty();
             MarkSpoutDirty();
         }
 
         private void OnScreenResolutionChanged(Resolution value, ObservableValueState state) {
             _screenResolution = value;
             MarkOutputTextureDirty();
-            MarkScreenDirty();
             MarkSpoutDirty();
         }
 
@@ -127,43 +118,6 @@ namespace ReeCamera {
             _spoutSettings = value;
             MarkOutputTextureDirty();
             MarkSpoutDirty();
-        }
-
-        #endregion
-
-        #region Screen
-
-        private bool _screenDirty;
-        private bool _screenInitialized;
-
-        private void MarkScreenDirty() {
-            _screenDirty = true;
-        }
-
-        private void UpdateScreenIfDirty() {
-            if (!_screenDirty) return;
-            _screenDirty = false;
-
-            DisposeScreen();
-            InitScreen();
-        }
-
-        private void InitScreen() {
-            if (_screenInitialized) return;
-
-            _screenImage.texture = _outputTexture;
-            _screenCanvas.enabled = true;
-
-            _screenInitialized = true;
-        }
-
-        private void DisposeScreen() {
-            if (!_screenInitialized) return;
-
-            _screenImage.texture = null;
-            _screenCanvas.enabled = false;
-
-            _screenInitialized = false;
         }
 
         #endregion
@@ -222,8 +176,6 @@ namespace ReeCamera {
 
             DisposeOutputTexture();
             InitOutputTexture();
-
-            SetTargetTexture(_outputTexture);
         }
 
         private void InitOutputTexture() {
@@ -251,6 +203,11 @@ namespace ReeCamera {
             };
 
             _outputTexture.Create();
+
+            _screenImage.texture = _outputTexture;
+            _screenImage.enabled = true;
+            SetTargetTexture(_outputTexture);
+
             _outputTextureInitialized = true;
         }
 
@@ -260,6 +217,8 @@ namespace ReeCamera {
             _outputTexture.Release();
             _outputTexture = null;
             _outputTextureInitialized = false;
+            _screenImage.texture = null;
+            _screenImage.enabled = false;
         }
 
         #endregion

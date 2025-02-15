@@ -16,11 +16,8 @@ namespace ReeCamera {
             CameraMovementController = CameraMovementController.Instantiate(gameObject, Config);
         }
 
-        private void Awake() {
-            AutoCameraRegistrator = gameObject.GetComponent<AutoCameraRegistrator>();
-        }
-
         protected virtual void Start() {
+            AutoCameraRegistrator = gameObject.GetComponent<AutoCameraRegistrator>();
             Config.NameOV.AddStateListener(OnNameChanged, this);
             Config.CameraSettingsOV.AddStateListener(OnCameraSettingChanged, this);
             Config.LayerFilterOV.AddStateListener(OnLayerFilterChanged, this);
@@ -33,6 +30,7 @@ namespace ReeCamera {
         }
 
         protected virtual void Update() {
+            UpdateCameraIfDirty();
             UpdateFrustumIfDirty();
         }
 
@@ -41,7 +39,7 @@ namespace ReeCamera {
         #region Events
 
         private CameraSettings _settings;
-        private bool _hasOffset;
+        private int _cullingMask;
 
         public void SetTargetTexture(RenderTexture texture) {
             Camera.targetTexture = texture;
@@ -54,22 +52,40 @@ namespace ReeCamera {
 
         private void OnCameraSettingChanged(CameraSettings value, ObservableValueState state) {
             _settings = value;
-
-            if (AutoCameraRegistrator != null) {
-                AutoCameraRegistrator.enabled = !value.IgnoreCameraUtils;
-            }
-
-            Camera.fieldOfView = value.FieldOfView;
-            Camera.nearClipPlane = value.NearClipPlane;
-            Camera.farClipPlane = value.FarClipPlane;
-            Camera.orthographic = value.Orthographic;
-            Camera.orthographicSize = value.OrthographicSize;
-
-            MarkFrustumDirty();
+            MarkCameraDirty();
         }
 
         private void OnLayerFilterChanged(LayerFilter value, ObservableValueState state) {
-            Camera.cullingMask = value.CullingMask;
+            _cullingMask = value.CullingMask;
+            MarkCameraDirty();
+        }
+
+        #endregion
+
+        #region camera
+
+        private bool _cameraDirty;
+
+        private void MarkCameraDirty() {
+            _cameraDirty = true;
+        }
+
+        private void UpdateCameraIfDirty() {
+            if (!_cameraDirty) return;
+            _cameraDirty = false;
+
+            if (AutoCameraRegistrator != null) {
+                AutoCameraRegistrator.enabled = !_settings.IgnoreCameraUtils;
+            }
+
+            Camera.cullingMask = _cullingMask;
+            Camera.fieldOfView = _settings.FieldOfView;
+            Camera.nearClipPlane = _settings.NearClipPlane;
+            Camera.farClipPlane = _settings.FarClipPlane;
+            Camera.orthographic = _settings.Orthographic;
+            Camera.orthographicSize = _settings.OrthographicSize;
+
+            MarkFrustumDirty();
         }
 
         #endregion

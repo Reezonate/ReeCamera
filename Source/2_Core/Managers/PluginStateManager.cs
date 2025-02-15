@@ -18,6 +18,10 @@ namespace ReeCamera {
         private SettingsApplicatorSO _settingsApplicator;
 
         private void Start() {
+            var screenCanvas = gameObject.AddComponent<Canvas>();
+            screenCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            PluginState.ScreenCanvasOV.SetValue(screenCanvas, this);
+
             BaseGameSettingOV.AddStateListener(OnBaseGameSettingsDidChange, this);
         }
 
