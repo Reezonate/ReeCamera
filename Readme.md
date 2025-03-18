@@ -14,6 +14,13 @@
 
 ![screenshot](Media/screenshot.png)
 
+# Built-in presets
+If you installed the mod properly, you can find these presets in the `UserData/ReeCamera/Presets/`
+1) `Nothing (0 Cameras).json` - Disables all desktop rendering. Since you won't be able to navigate the menu, **don't use this preset in FPFC**. Use case - saving performance in solo VR sessions (no video recording/streaming)
+2) `Simple (1 Camera).json` - Single smooth follow camera
+3) `Video (3 Cameras).json` - Smooth follow camera + back and side orthographic "swing view" cameras
+4) `test.json` - Test preset for development. Included as features demo (screenshot above)
+
 # How To Use
 
 1) Download the latest mod .zip from the [releases page](https://github.com/Reezonate/ReeCamera/releases)
