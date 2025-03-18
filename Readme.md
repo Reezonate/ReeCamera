@@ -26,24 +26,24 @@ Change **only** when the game is closed, mod will override otherwise
 ```json
 {
   "MainMenuConfigVR": {
-    "PresetId": "BSWC Stream.json" // Can be selected in-game
+    "PresetId": "Simple (1 Camera).json" // Can be selected in-game
   },
   "GameplayConfigVR": {
-    "PresetId": "BSWC Stream.json"
+    "PresetId": "Video (3 Cameras).json"
   },
   "MainMenuConfigFPFC": {
     "FramerateSettings": { // Framerate settings for navigating main menu in FPFC
       "VSync": true, // Forces the game to run at your display refresh rate
       "TargetFramerate": 0 // 0 = no fps cap. >0 = fps cap. Does nothing if VSync is on
     },
-    "PresetId": "Reesabering.json"
+    "PresetId": ""
   },
   "GameplayConfigFPFC": {
     "FramerateSettings": { // Framerate settings for watching/recording replays in FPFC
       "VSync": false, // Don't use vsync for video recording, unless your native display refresh rate matches your video framerate
       "TargetFramerate": 60 // Should match your recording settings
     },
-    "PresetId": "YT video.json"
+    "PresetId": "Video (3 Cameras).json"
   }
 }
 ```
@@ -59,7 +59,7 @@ Change **only** when the game is closed, mod will override otherwise
     { /* Layout config 1 */ },
     { /* Layout config 2 */ },
     { /* ... */ }
-  ] // Note: if you don't use any layouts (like Void preset) screen buffer will stop updating and will become stuck at the last rendered frame in FPFC or will mirror HMD display in VR
+  ] // Note: if you don't use any layouts (like 'Nothing' preset) screen buffer will stop updating and will become stuck at the last rendered frame in FPFC or will mirror HMD display in VR
 }
 ```
 
@@ -146,7 +146,7 @@ Used for both Main and Secondary cameras
     "PositionalSmoothing": 0.0, // less = more smoothing. But 0 = no smoothing :D
     "RotationalSmoothing": 0.0
   },
-  "LayerFilter": { // Visibility mask. Refer to https://github.com/Reezonate/CameraUtils/blob/master/Source/Core/VisibilityLayer.cs
+  "LayerFilter": { // Controls object layers visibility. Base game values are:
     "Layer0": true,    // Layer name: Default
     "Layer1": true,    // Layer name: TransparentFX
     "Layer2": true,    // Layer name: IgnoreRaycast
