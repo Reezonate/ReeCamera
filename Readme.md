@@ -1,13 +1,16 @@
 ﻿# About
 ```diff
-- This is an early version with bare minimum UI in-game! All config changes are done by manually editing config files
-- If you are new to modding or don't like tinkering with your mods, consider using Camera2 mod instead
+- This is an early version with bare minimum UI in-game! 
+- All config changes are done by manually editing config files
+- If you are new to modding, consider using Camera2 mod instead
 ```
 
 **ReeCamera** is a Beat Saber camera mod for video recording and streaming, featuring:
-- Separate presets for the Menu/Gameplay scenes in VR/FPFC
-- Masks and true transparency for overlay cameras (for example: back/side swing cameras)
-- Support for Spout2 output with multiple sources, allowing to completely bypass screen capture ([Plugin for OBS](github.com/Off-World-Live/obs-spout2-plugin))
+- Separate presets for Menu/Gameplay scenes in VR/FPFC
+- Masks and true transparency for overlay cameras, such as Back/Side swing view cameras
+- Support for Spout2 output with multiple sources ([Plugin for OBS](github.com/Off-World-Live/obs-spout2-plugin))
+  - allows to completely bypass screen capture
+  - allows to record 4k/8k (or any other resolution) videos without a 4k/8k display
 
 ![screenshot](Media/screenshot.png)
 
@@ -143,6 +146,39 @@ Used for both Main and Secondary cameras
     "PositionalSmoothing": 0.0, // less = more smoothing. But 0 = no smoothing :D
     "RotationalSmoothing": 0.0
   },
-  "LayerFilter": {} // Visibility mask. Refer to https://github.com/Reezonate/CameraUtils/blob/master/Source/Core/VisibilityLayer.cs
+  "LayerFilter": { // Visibility mask. Refer to https://github.com/Reezonate/CameraUtils/blob/master/Source/Core/VisibilityLayer.cs
+    "Layer0": true,    // Layer name: Default
+    "Layer1": true,    // Layer name: TransparentFX
+    "Layer2": true,    // Layer name: IgnoreRaycast
+    "Layer3": false,   // Layer name: ThirdPerson
+    "Layer4": true,    // Layer name: Water
+    "Layer5": true,    // Layer name: UI
+    "Layer6": false,   // Layer name: FirstPerson
+    "Layer7": false,   // Layer name: Layer7
+    "Layer8": true,    // Layer name: Note
+    "Layer9": true,    // Layer name: NoteDebris
+    "Layer10": false,  // Layer name: Avatar
+    "Layer11": true,   // Layer name: Obstacle
+    "Layer12": true,   // Layer name: Saber
+    "Layer13": true,   // Layer name: NeonLight
+    "Layer14": true,   // Layer name: Environment
+    "Layer15": true,   // Layer name: GrabPassTexture1
+    "Layer16": true,   // Layer name: CutEffectParticles
+    "Layer17": false,  // Layer name: HmdOnly (controlled by CameraUtils)
+    "Layer18": false,  // Layer name: DesktopOnly (controlled by CameraUtils)
+    "Layer19": true,   // Layer name: NonReflectedParticles
+    "Layer20": true,   // Layer name: EnvironmentPhysics
+    "Layer21": false,  // Layer name: AlwaysVisible (controlled by CameraUtils)
+    "Layer22": false,  // Layer name: Event
+    "Layer23": false,  // Layer name: DesktopOnlyAndReflected (controlled by CameraUtils)
+    "Layer24": false,  // Layer name: HmdOnlyAndReflected (controlled by CameraUtils)
+    "Layer25": false,  // Layer name: FixMRAlpha
+    "Layer26": false,  // Layer name: AlwaysVisibleAndReflected (controlled by CameraUtils)
+    "Layer27": true,   // Layer name: DontShowInExternalMRCamera
+    "Layer28": true,   // Layer name: PlayersPlace
+    "Layer29": true,   // Layer name: Skybox
+    "Layer30": false,  // Layer name: MRForegroundClipPlane
+    "Layer31": false   // Layer name: Reserved
+  }
 }
 ```
