@@ -69,6 +69,7 @@ namespace ReeCamera {
             Config.SpoutSettingsOV.RemoveStateListener(OnSpoutSettingsChanged);
             Config.QualitySettingsOV.RemoveStateListener(OnQualitySettingsChanged);
             PluginState.ScreenResolution.RemoveStateListener(OnScreenResolutionChanged);
+            PluginState.ScreenCanvasOV.RemoveStateListener(OnScreenCanvasChanged);
 
             DisposeOutputTexture();
         }
