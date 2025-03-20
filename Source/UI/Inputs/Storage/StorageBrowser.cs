@@ -69,8 +69,8 @@ namespace ReeCamera.UI {
                 cellInfos.Add(cellInfo);
             }
 
-            _optionsList.Data = cellInfos;
-            _optionsList.TableView.ReloadDataKeepingPosition();
+            _optionsList.data = cellInfos;
+            _optionsList.tableView.ReloadDataKeepingPosition();
 
             MarkHighlightDirty();
         }
@@ -92,11 +92,11 @@ namespace ReeCamera.UI {
             var selectedOption = Context?.Value;
 
             if (selectedOption == null) {
-                _optionsList.TableView.ClearSelection();
+                _optionsList.tableView.ClearSelection();
             } else {
                 for (var i = 0; i < _options.Count; i++) {
                     if (_options[i].Id != selectedOption.Id) continue;
-                    _optionsList.TableView.SelectCellWithIdx(i);
+                    _optionsList.tableView.SelectCellWithIdx(i);
                     break;
                 }
             }

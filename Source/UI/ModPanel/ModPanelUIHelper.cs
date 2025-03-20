@@ -17,7 +17,7 @@ namespace ReeCamera.UI {
 
         public void AddTab() {
             if (_tabActive) return;
-            GameplaySetup.Instance.AddTab(
+            GameplaySetup.instance.AddTab(
                 TabName,
                 ResourcePath,
                 PepegaSingletonFix<ModPanelUI>.instance
@@ -27,7 +27,7 @@ namespace ReeCamera.UI {
 
         public void RemoveTab() {
             if (!_tabActive) return;
-            GameplaySetup.Instance.RemoveTab(TabName);
+            GameplaySetup.instance.RemoveTab(TabName);
             _tabActive = false;
         }
 

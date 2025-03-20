@@ -8,6 +8,6 @@
   "gameVersion": "1.39.0",
   "dependsOn": {
     "BSIPA": "^4.0.5",
-    "CameraUtils": "^1.0.6"
+    "CameraUtils": "^1.0.5"
   }
 }

@@ -1,32 +1,24 @@
-﻿using BeatSaber.Settings;
-using JetBrains.Annotations;
-using UnityEngine;
-using Zenject;
+﻿using UnityEngine;
 using Input = UnityEngine.Input;
 
 namespace ReeCamera {
     public class PluginStateManager : MonoBehaviour {
-        #region Static
-
-        internal static readonly ObservableValue<Settings> BaseGameSettingOV = new ObservableValue<Settings>();
-
-        #endregion
-
         #region Init / Dispose
 
-        [Inject, UsedImplicitly]
-        private SettingsApplicatorSO _settingsApplicator;
+        private MainSettingsModelSO _mainSettingsModel;
 
         private void Start() {
             var screenCanvas = gameObject.AddComponent<Canvas>();
             screenCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
             PluginState.ScreenCanvasOV.SetValue(screenCanvas, this);
 
-            BaseGameSettingOV.AddStateListener(OnBaseGameSettingsDidChange, this);
+            _mainSettingsModel = PluginState.MainSettingsModelOV.Value;
+            _mainSettingsModel.windowResolution.didChangeEvent += OnResolutionChanged;
+            OnResolutionChanged();
         }
 
         private void OnDestroy() {
-            BaseGameSettingOV.RemoveStateListener(OnBaseGameSettingsDidChange);
+            _mainSettingsModel.windowResolution.didChangeEvent -= OnResolutionChanged;
         }
 
         #endregion
@@ -54,10 +46,12 @@ namespace ReeCamera {
 
         #region Events
 
-        private void OnBaseGameSettingsDidChange(Settings value, ObservableValueState state) {
+        private void OnResolutionChanged() {
+            var value = _mainSettingsModel.windowResolution.value;
+
             var resolution = Screen.currentResolution;
-            resolution.width = value.window.resolution.x;
-            resolution.height = value.window.resolution.y;
+            resolution.width = value.x;
+            resolution.height = value.y;
 
             PluginState.ScreenResolution.SetValue(resolution, this);
         }

@@ -9,6 +9,8 @@ namespace ReeCamera {
         public static readonly IObservableValue<ReeTransform> FirstPersonPoseOV = new ObservableValue<ReeTransform>();
         public static readonly IObservableValue<Resolution> ScreenResolution = new ObservableValue<Resolution>();
         public static readonly IObservableValue<Canvas> ScreenCanvasOV = new ObservableValue<Canvas>();
+        
+        public static readonly IObservableValue<MainSettingsModelSO> MainSettingsModelOV = new ObservableValue<MainSettingsModelSO>();
 
         public static event Action NoteWasCutEvent;
 

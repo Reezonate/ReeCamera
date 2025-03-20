@@ -176,7 +176,7 @@ namespace ReeCamera.UI {
         private void ParseSelfIfNeeded() {
             if (_state != State.Uninitialized) return;
             _state = State.Parsing;
-            BSMLParser.Instance.Parse(GetBsmlForType(GetType()), gameObject, this);
+            BSMLParser.instance.Parse(GetBsmlForType(GetType()), gameObject, this);
             RootNode = transform.GetChild(0);
             _state = State.Parsed;
         }

@@ -66,7 +66,7 @@
         <Reference Include="HMLib">
             <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\HMLib.dll</HintPath>
         </Reference>
-        <Reference Include="HMUI">
+        <Reference Include="HMUI" publicize="true">
             <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\HMUI.dll</HintPath>
         </Reference>
         <Reference Include="BeatSaber.ViewSystem" publicize="true">
@@ -120,7 +120,7 @@
     <!--  EMBEDDED RESOURCES INCLUDE  -->
     <ItemGroup>
         <EmbeddedResource Include="9_Resources\BSML\**\*.bsml"/>
-        <EmbeddedResource Include="9_Resources\AssetBundles\asset_bundle"/>
+        <EmbeddedResource Include="9_Resources\AssetBundles\asset_bundle_2019"/>
         <EmbeddedResource Include="9_Resources\Plugins\KlakSpout.dll"/>
         <EmbeddedResource Include="manifest.json"/>
     </ItemGroup>

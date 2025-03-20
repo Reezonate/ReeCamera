@@ -4,6 +4,8 @@
 bin
 obj
 Source/9_Resources/AssetBundles/asset_bundle.manifest
+Source/9_Resources/AssetBundles/asset_bundle
+Source/9_Resources/AssetBundles/asset_bundle_2019.manifest
 Source/9_Resources/AssetBundles/AssetBundles
 Source/9_Resources/AssetBundles/AssetBundles.manifest
 *.DotSettings

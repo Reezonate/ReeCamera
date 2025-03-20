@@ -6,7 +6,7 @@ namespace ReeCamera {
     public static class BundleLoader {
         #region Initialize
 
-        private const string BundleName = Plugin.ResourcesPath + ".AssetBundles.asset_bundle";
+        private const string BundleName = Plugin.ResourcesPath + ".AssetBundles.asset_bundle_2019";
         private static bool _ready;
 
         public static void Initialize() {
