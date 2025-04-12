@@ -12,5 +12,10 @@ namespace ReeCamera {
         }
 
         public static FramerateSettings Default = new FramerateSettings(0);
+        
+        public static FramerateSettings NoVSync60Fps = new FramerateSettings {
+            VSync = false,
+            TargetFramerate = 60
+        };
     }
 }
