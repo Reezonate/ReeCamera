@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using ReeCamera.UI;
+using SiraUtil.Tools.FPFC;
 using Zenject;
 
 namespace ReeCamera {
@@ -7,9 +8,12 @@ namespace ReeCamera {
     public class OnMenuInstaller : Installer<OnMenuInstaller> {
         [Inject, UsedImplicitly]
         private IVRPlatformHelper _vrPlatformHelper;
+        
+        [Inject, UsedImplicitly]
+        private IFPFCSettings _fpfcSettings;
 
         public override void InstallBindings() {
-            if (_vrPlatformHelper.vrPlatformSDK == VRPlatformSDK.Unknown) {
+            if (_fpfcSettings.Enabled) {
                 ReeSabersInterop.SuppressReeSabersFramerateManager = true;
                 PluginState.LaunchTypeOV.SetValue(LaunchType.FPFC, this);
             } else {

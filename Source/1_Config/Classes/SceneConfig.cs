@@ -13,7 +13,7 @@ namespace ReeCamera {
         #region Values
 
         [JsonProperty("FramerateSettings"), JsonConverter(typeof(ObservableValue<FramerateSettings>.Converter))]
-        public ObservableValue<FramerateSettings> FramerateSettingsOV = new ObservableValue<FramerateSettings>(FramerateSettings.Default);
+        public ObservableValue<FramerateSettings> FramerateSettingsOV = new ObservableValue<FramerateSettings>(FramerateSettings.NoVSync60Fps);
 
         #endregion
 
