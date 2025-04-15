@@ -8,7 +8,7 @@
 **ReeCamera** is a Beat Saber camera mod for video recording and streaming, featuring:
 - Separate presets for Menu/Gameplay scenes in VR/FPFC
 - Masks and true transparency for overlay cameras, such as Back/Side swing view cameras
-- Support for Spout2 output with multiple sources ([Plugin for OBS](github.com/Off-World-Live/obs-spout2-plugin))
+- Support for Spout2 output with multiple sources ([Plugin for OBS](https://github.com/Off-World-Live/obs-spout2-plugin))
   - allows to completely bypass screen capture
   - allows to record 4k/8k (or any other resolution) videos without a 4k/8k display
 
