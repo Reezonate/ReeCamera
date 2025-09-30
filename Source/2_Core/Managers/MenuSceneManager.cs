@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
 
@@ -22,6 +23,10 @@ namespace ReeCamera {
                     break;
                 }
             }
+        }
+
+        private void OnEnable() {
+            PluginState.SceneTypeOV.SetValue(SceneType.MainMenu, this);
         }
 
         private void LateUpdate() {

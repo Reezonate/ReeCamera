@@ -1,3 +1,4 @@
+using System;
 using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
@@ -11,8 +12,6 @@ namespace ReeCamera {
         private BeatmapObjectManager _beatmapObjectManager;
 
         private void Awake() {
-            PluginState.SceneTypeOV.SetValue(SceneType.Gameplay, this);
-
             switch (PluginState.LaunchTypeOV.Value) {
                 case LaunchType.VR: {
                     var config = MainPluginConfig.Instance.GameplayConfigVR;
@@ -29,13 +28,15 @@ namespace ReeCamera {
             }
         }
 
+        private void OnEnable() {
+            PluginState.SceneTypeOV.SetValue(SceneType.Gameplay, this);
+        }
+
         private void Start() {
             _beatmapObjectManager.noteWasCutEvent += HandleNoteWasCut;
         }
 
         private void OnDestroy() {
-            PluginState.SceneTypeOV.SetValue(SceneType.MainMenu, this);
-
             _beatmapObjectManager.noteWasCutEvent -= HandleNoteWasCut;
         }
 

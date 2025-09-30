@@ -15,10 +15,12 @@ namespace ReeCamera {
             _mainSettingsModel = PluginState.MainSettingsModelOV.Value;
             _mainSettingsModel.windowResolution.didChangeEvent += OnResolutionChanged;
             OnResolutionChanged();
+            PluginState.SceneTypeOV.AddStateListener(OnSceneTypeChanged, this);
         }
 
         private void OnDestroy() {
             _mainSettingsModel.windowResolution.didChangeEvent -= OnResolutionChanged;
+            PluginState.SceneTypeOV.RemoveStateListener(OnSceneTypeChanged);
         }
 
         #endregion
@@ -54,6 +56,10 @@ namespace ReeCamera {
             resolution.height = value.y;
 
             PluginState.ScreenResolution.SetValue(resolution, this);
+        }
+
+        private void OnSceneTypeChanged(SceneType value, ObservableValueState state) {
+            PluginState.ScreenCanvasOV.Value.enabled = value != SceneType.BeatmapEditor;
         }
 
         #endregion

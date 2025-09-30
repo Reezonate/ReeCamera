@@ -45,6 +45,7 @@ namespace ReeCamera {
 
         public bool IsSuitableForCamera(RegisteredCamera registeredCamera) {
             if (registeredCamera.CameraFlags.HasFlag(CameraFlags.Mirror) || registeredCamera.Camera.stereoEnabled) return false;
+            if (PluginState.SceneTypeOV.Value == SceneType.BeatmapEditor) return false;
             var go = registeredCamera.Camera.gameObject;
             if (go.GetComponent<MainCameraController>() != null || go.GetComponent<SecondaryCameraController>() != null) return false;
             return KnownCameras.Any(knownName => go.name.Contains(knownName));
