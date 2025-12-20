@@ -54,7 +54,7 @@ namespace ReeCamera {
             Layer14 = true;
             Layer15 = true;
             Layer16 = true;
-            Layer17 = false;
+            Layer17 = true;
             Layer18 = false;
             Layer19 = true;
             Layer20 = true;
@@ -71,7 +71,7 @@ namespace ReeCamera {
             Layer31 = false;
         }
 
-        public static LayerFilter Everything => new LayerFilter(0);
+        public static LayerFilter Default => new LayerFilter(0);
 
         public static LayerFilter FromCullingMask(int mask) {
             var filter = new LayerFilter {
