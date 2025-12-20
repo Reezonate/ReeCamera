@@ -1,0 +1,617 @@
+{
+  "FormatVersion": 1,
+  "ModVersion": "0.0.1",
+  "Layouts": [
+    {
+      "IsVisible": true,
+      "ScreenRect": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.8,
+        "height": 1.0
+      },
+      "MainCamera": {
+        "SpoutSettings": {
+          "Enabled": false,
+          "Width": 1920,
+          "Height": 1080,
+          "ChannelName": "ReeCamera #1"
+        },
+        "Name": "Main Camera",
+        "QualitySettings": {
+          "AntiAliasing": 4,
+          "RenderScale": 1.0
+        },
+        "CameraSettings": {
+          "IgnoreCameraUtils": false,
+          "FieldOfView": 70.0,
+          "NearClipPlane": 0.1,
+          "FarClipPlane": 1000.0,
+          "Orthographic": false,
+          "OrthographicSize": 5.0,
+          "CenterOffset": {
+            "x": 0.0,
+            "y": 0.0
+          }
+        },
+        "MovementConfig": {
+          "MovementType": 1,
+          "OffsetType": 1,
+          "PositionOffset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -0.5
+          },
+          "RotationOffset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ForceUpright": true,
+          "PositionalSmoothing": 2.0,
+          "RotationalSmoothing": 2.0
+        },
+        "LayerFilter": {
+          "Layer0": true,
+          "Layer1": true,
+          "Layer2": false,
+          "Layer3": true,
+          "Layer4": true,
+          "Layer5": true,
+          "Layer6": true,
+          "Layer7": false,
+          "Layer8": true,
+          "Layer9": true,
+          "Layer10": true,
+          "Layer11": true,
+          "Layer12": true,
+          "Layer13": true,
+          "Layer14": true,
+          "Layer15": false,
+          "Layer16": true,
+          "Layer17": false,
+          "Layer18": false,
+          "Layer19": false,
+          "Layer20": false,
+          "Layer21": false,
+          "Layer22": false,
+          "Layer23": false,
+          "Layer24": false,
+          "Layer25": false,
+          "Layer26": false,
+          "Layer27": true,
+          "Layer28": true,
+          "Layer29": true,
+          "Layer30": false,
+          "Layer31": false
+        }
+      },
+      "SecondaryCameras": [
+        {
+          "CompositionSettings": {
+            "ScreenRect": {
+              "x": -0.02,
+              "y": -0.02,
+              "width": 0.3,
+              "height": 0.4
+            },
+            "MaskTextureId": "SmoothFadeMask.png",
+            "Transparent": true,
+            "BackgroundColor": {
+              "r": 0.8,
+              "g": 0.8,
+              "b": 0.8,
+              "a": 1.0
+            },
+            "BackgroundBlurLevel": 2,
+            "BackgroundBlurScale": 2.0
+          },
+          "Name": "Bottom Left Camera (Back ortho view)",
+          "QualitySettings": {
+            "AntiAliasing": 4,
+            "RenderScale": 1.0
+          },
+          "CameraSettings": {
+            "IgnoreCameraUtils": false,
+            "FieldOfView": 60.0,
+            "NearClipPlane": 0.3,
+            "FarClipPlane": 100.0,
+            "Orthographic": true,
+            "OrthographicSize": 1.6,
+            "CenterOffset": {
+              "x": 0.0,
+              "y": 0.0
+            }
+          },
+          "MovementConfig": {
+            "MovementType": 0,
+            "OffsetType": 0,
+            "PositionOffset": {
+              "x": 0.0,
+              "y": 1.2,
+              "z": -5.0
+            },
+            "RotationOffset": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "ForceUpright": false,
+            "PositionalSmoothing": 0.0,
+            "RotationalSmoothing": 0.0
+          },
+          "LayerFilter": {
+            "Layer0": true,
+            "Layer1": true,
+            "Layer2": false,
+            "Layer3": true,
+            "Layer4": false,
+            "Layer5": false,
+            "Layer6": false,
+            "Layer7": false,
+            "Layer8": true,
+            "Layer9": false,
+            "Layer10": false,
+            "Layer11": true,
+            "Layer12": true,
+            "Layer13": false,
+            "Layer14": false,
+            "Layer15": false,
+            "Layer16": true,
+            "Layer17": false,
+            "Layer18": false,
+            "Layer19": false,
+            "Layer20": false,
+            "Layer21": false,
+            "Layer22": false,
+            "Layer23": false,
+            "Layer24": false,
+            "Layer25": false,
+            "Layer26": false,
+            "Layer27": true,
+            "Layer28": false,
+            "Layer29": false,
+            "Layer30": false,
+            "Layer31": false
+          }
+        },
+        {
+          "CompositionSettings": {
+            "ScreenRect": {
+              "x": 0.72,
+              "y": -0.02,
+              "width": 0.3,
+              "height": 0.4
+            },
+            "MaskTextureId": "SmoothFadeMask.png",
+            "Transparent": true,
+            "BackgroundColor": {
+              "r": 0.8,
+              "g": 0.8,
+              "b": 0.8,
+              "a": 1.0
+            },
+            "BackgroundBlurLevel": 2,
+            "BackgroundBlurScale": 2.0
+          },
+          "Name": "Bottom Right Camera (Side ortho view)",
+          "QualitySettings": {
+            "AntiAliasing": 4,
+            "RenderScale": 1.0
+          },
+          "CameraSettings": {
+            "IgnoreCameraUtils": false,
+            "FieldOfView": 60.0,
+            "NearClipPlane": 0.3,
+            "FarClipPlane": 10.0,
+            "Orthographic": true,
+            "OrthographicSize": 1.6,
+            "CenterOffset": {
+              "x": 0.0,
+              "y": 0.0
+            }
+          },
+          "MovementConfig": {
+            "MovementType": 0,
+            "OffsetType": 0,
+            "PositionOffset": {
+              "x": -5.0,
+              "y": 1.2,
+              "z": 0.6
+            },
+            "RotationOffset": {
+              "x": 0.0,
+              "y": 90.0,
+              "z": 0.0
+            },
+            "ForceUpright": false,
+            "PositionalSmoothing": 0.0,
+            "RotationalSmoothing": 0.0
+          },
+          "LayerFilter": {
+            "Layer0": true,
+            "Layer1": true,
+            "Layer2": false,
+            "Layer3": true,
+            "Layer4": false,
+            "Layer5": false,
+            "Layer6": false,
+            "Layer7": false,
+            "Layer8": true,
+            "Layer9": false,
+            "Layer10": false,
+            "Layer11": true,
+            "Layer12": true,
+            "Layer13": false,
+            "Layer14": false,
+            "Layer15": false,
+            "Layer16": true,
+            "Layer17": false,
+            "Layer18": false,
+            "Layer19": false,
+            "Layer20": false,
+            "Layer21": false,
+            "Layer22": false,
+            "Layer23": false,
+            "Layer24": false,
+            "Layer25": false,
+            "Layer26": false,
+            "Layer27": true,
+            "Layer28": false,
+            "Layer29": false,
+            "Layer30": false,
+            "Layer31": false
+          }
+        },
+        {
+          "CompositionSettings": {
+            "ScreenRect": {
+              "x": 0.0,
+              "y": 0.6,
+              "width": 0.3,
+              "height": 0.4
+            },
+            "MaskTextureId": "Smile.png",
+            "Transparent": true,
+            "BackgroundColor": {
+              "r": 0.9,
+              "g": 0.9,
+              "b": 0.9,
+              "a": 1.0
+            },
+            "BackgroundBlurLevel": 1,
+            "BackgroundBlurScale": 2.0
+          },
+          "Name": "Top Left Camera",
+          "QualitySettings": {
+            "AntiAliasing": 8,
+            "RenderScale": 1.0
+          },
+          "CameraSettings": {
+            "IgnoreCameraUtils": false,
+            "FieldOfView": 60.0,
+            "NearClipPlane": 0.3,
+            "FarClipPlane": 10.0,
+            "Orthographic": true,
+            "OrthographicSize": 1.4,
+            "CenterOffset": {
+              "x": 0.0,
+              "y": 0.0
+            }
+          },
+          "MovementConfig": {
+            "MovementType": 0,
+            "OffsetType": 0,
+            "PositionOffset": {
+              "x": -5.0,
+              "y": 1.2,
+              "z": 0.6
+            },
+            "RotationOffset": {
+              "x": 0.0,
+              "y": 90.0,
+              "z": 0.0
+            },
+            "ForceUpright": false,
+            "PositionalSmoothing": 0.0,
+            "RotationalSmoothing": 0.0
+          },
+          "LayerFilter": {
+            "Layer0": true,
+            "Layer1": true,
+            "Layer2": false,
+            "Layer3": true,
+            "Layer4": false,
+            "Layer5": false,
+            "Layer6": false,
+            "Layer7": false,
+            "Layer8": true,
+            "Layer9": false,
+            "Layer10": false,
+            "Layer11": true,
+            "Layer12": true,
+            "Layer13": false,
+            "Layer14": false,
+            "Layer15": false,
+            "Layer16": true,
+            "Layer17": false,
+            "Layer18": false,
+            "Layer19": false,
+            "Layer20": false,
+            "Layer21": false,
+            "Layer22": false,
+            "Layer23": false,
+            "Layer24": false,
+            "Layer25": false,
+            "Layer26": false,
+            "Layer27": true,
+            "Layer28": false,
+            "Layer29": false,
+            "Layer30": false,
+            "Layer31": false
+          }
+        },
+        {
+          "CompositionSettings": {
+            "ScreenRect": {
+              "x": 0.7,
+              "y": 0.6,
+              "width": 0.3,
+              "height": 0.4
+            },
+            "MaskTextureId": "Smile.png",
+            "Transparent": false,
+            "BackgroundColor": {
+              "r": 1.0,
+              "g": 1.0,
+              "b": 1.0,
+              "a": 1.0
+            },
+            "BackgroundBlurLevel": 2,
+            "BackgroundBlurScale": 2.0
+          },
+          "Name": "Top Right Camera",
+          "QualitySettings": {
+            "AntiAliasing": 8,
+            "RenderScale": 1.0
+          },
+          "CameraSettings": {
+            "IgnoreCameraUtils": false,
+            "FieldOfView": 60.0,
+            "NearClipPlane": 0.3,
+            "FarClipPlane": 1000.0,
+            "Orthographic": false,
+            "OrthographicSize": 1.4,
+            "CenterOffset": {
+              "x": 0.0,
+              "y": 0.0
+            }
+          },
+          "MovementConfig": {
+            "MovementType": 0,
+            "OffsetType": 0,
+            "PositionOffset": {
+              "x": -1.6,
+              "y": 2.1,
+              "z": -1.6
+            },
+            "RotationOffset": {
+              "x": 15.0,
+              "y": 20.0,
+              "z": 0.0
+            },
+            "ForceUpright": false,
+            "PositionalSmoothing": 0.0,
+            "RotationalSmoothing": 0.0
+          },
+          "LayerFilter": {
+            "Layer0": true,
+            "Layer1": true,
+            "Layer2": false,
+            "Layer3": true,
+            "Layer4": true,
+            "Layer5": false,
+            "Layer6": true,
+            "Layer7": false,
+            "Layer8": true,
+            "Layer9": true,
+            "Layer10": true,
+            "Layer11": true,
+            "Layer12": true,
+            "Layer13": true,
+            "Layer14": true,
+            "Layer15": false,
+            "Layer16": true,
+            "Layer17": false,
+            "Layer18": false,
+            "Layer19": false,
+            "Layer20": false,
+            "Layer21": false,
+            "Layer22": false,
+            "Layer23": false,
+            "Layer24": false,
+            "Layer25": false,
+            "Layer26": false,
+            "Layer27": true,
+            "Layer28": true,
+            "Layer29": true,
+            "Layer30": false,
+            "Layer31": false
+          }
+        }
+      ]
+    },
+    {
+      "IsVisible": true,
+      "ScreenRect": {
+        "x": 0.8,
+        "y": 0.5,
+        "width": 0.2,
+        "height": 0.5
+      },
+      "MainCamera": {
+        "SpoutSettings": {
+          "Enabled": false,
+          "Width": 600,
+          "Height": 800,
+          "ChannelName": "ReeCamera #2"
+        },
+        "Name": "Right Top Camera",
+        "QualitySettings": {
+          "AntiAliasing": 4,
+          "RenderScale": 1.0
+        },
+        "CameraSettings": {
+          "IgnoreCameraUtils": false,
+          "FieldOfView": 70.0,
+          "NearClipPlane": 0.3,
+          "FarClipPlane": 1000.0,
+          "Orthographic": false,
+          "OrthographicSize": 5.0,
+          "CenterOffset": {
+            "x": 0.0,
+            "y": 0.0
+          }
+        },
+        "MovementConfig": {
+          "MovementType": 1,
+          "OffsetType": 1,
+          "PositionOffset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.2
+          },
+          "RotationOffset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "ForceUpright": true,
+          "PositionalSmoothing": 4.0,
+          "RotationalSmoothing": 4.0
+        },
+        "LayerFilter": {
+          "Layer0": true,
+          "Layer1": true,
+          "Layer2": false,
+          "Layer3": true,
+          "Layer4": true,
+          "Layer5": true,
+          "Layer6": true,
+          "Layer7": false,
+          "Layer8": true,
+          "Layer9": true,
+          "Layer10": true,
+          "Layer11": true,
+          "Layer12": true,
+          "Layer13": true,
+          "Layer14": true,
+          "Layer15": false,
+          "Layer16": true,
+          "Layer17": false,
+          "Layer18": false,
+          "Layer19": false,
+          "Layer20": false,
+          "Layer21": false,
+          "Layer22": false,
+          "Layer23": false,
+          "Layer24": false,
+          "Layer25": false,
+          "Layer26": false,
+          "Layer27": true,
+          "Layer28": true,
+          "Layer29": true,
+          "Layer30": false,
+          "Layer31": false
+        }
+      },
+      "SecondaryCameras": []
+    },
+    {
+      "IsVisible": true,
+      "ScreenRect": {
+        "x": 0.8,
+        "y": 0.0,
+        "width": 0.2,
+        "height": 0.5
+      },
+      "MainCamera": {
+        "SpoutSettings": {
+          "Enabled": false,
+          "Width": 600,
+          "Height": 800,
+          "ChannelName": "ReeCamera #1"
+        },
+        "Name": "Right Bottom Camera",
+        "QualitySettings": {
+          "AntiAliasing": 4,
+          "RenderScale": 1.0
+        },
+        "CameraSettings": {
+          "IgnoreCameraUtils": false,
+          "FieldOfView": 70.0,
+          "NearClipPlane": 0.3,
+          "FarClipPlane": 1000.0,
+          "Orthographic": false,
+          "OrthographicSize": 5.0,
+          "CenterOffset": {
+            "x": 0.0,
+            "y": 0.0
+          }
+        },
+        "MovementConfig": {
+          "MovementType": 1,
+          "OffsetType": 1,
+          "PositionOffset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.2
+          },
+          "RotationOffset": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 180.0
+          },
+          "ForceUpright": false,
+          "PositionalSmoothing": 4.0,
+          "RotationalSmoothing": 4.0
+        },
+        "LayerFilter": {
+          "Layer0": true,
+          "Layer1": true,
+          "Layer2": false,
+          "Layer3": true,
+          "Layer4": true,
+          "Layer5": true,
+          "Layer6": true,
+          "Layer7": false,
+          "Layer8": true,
+          "Layer9": true,
+          "Layer10": true,
+          "Layer11": true,
+          "Layer12": true,
+          "Layer13": true,
+          "Layer14": true,
+          "Layer15": false,
+          "Layer16": true,
+          "Layer17": false,
+          "Layer18": false,
+          "Layer19": false,
+          "Layer20": false,
+          "Layer21": false,
+          "Layer22": false,
+          "Layer23": false,
+          "Layer24": false,
+          "Layer25": false,
+          "Layer26": false,
+          "Layer27": true,
+          "Layer28": true,
+          "Layer29": true,
+          "Layer30": false,
+          "Layer31": false
+        }
+      },
+      "SecondaryCameras": []
+    }
+  ]
+}

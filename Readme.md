@@ -56,7 +56,7 @@ Change **only** when the game is closed, mod will override otherwise
 ```
 
 ## Scene preset `UserData/ReeCamera/Presets/<filename>.json`
-- See built-in presets for more examples
+- See [built-in presets](https://github.com/Reezonate/ReeCamera/tree/master/DefaultPresets/) for more examples
 - To refresh press `Shift+Ctrl+F1` or click the `Reload` button
 ```json
 {
