@@ -20,7 +20,7 @@ namespace ReeCamera {
         // public ObservableValue<PhysicsLinkSettings> PhysicsLinkSettingsOV = new ObservableValue<PhysicsLinkSettings>(PhysicsLinkSettings.Default);
 
         [JsonProperty("LayerFilter"), JsonConverter(typeof(ObservableValue<LayerFilter>.Converter))]
-        public ObservableValue<LayerFilter> LayerFilterOV = new ObservableValue<LayerFilter>(LayerFilter.Everything);
+        public ObservableValue<LayerFilter> LayerFilterOV = new ObservableValue<LayerFilter>(LayerFilter.Default);
 
         #endregion
 

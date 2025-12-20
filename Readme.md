@@ -161,7 +161,7 @@ Used for both Main and Secondary cameras
     "Layer4": true,    // Layer name: Water
     "Layer5": true,    // Layer name: UI
     "Layer6": false,   // Layer name: FirstPerson
-    "Layer7": false,   // Layer name: Layer7
+    "Layer7": false,   // Layer name: HmdOnly (controlled by CameraUtils) <--- Since 1.42.0
     "Layer8": true,    // Layer name: Note
     "Layer9": true,    // Layer name: NoteDebris
     "Layer10": false,  // Layer name: Avatar
@@ -171,7 +171,7 @@ Used for both Main and Secondary cameras
     "Layer14": true,   // Layer name: Environment
     "Layer15": true,   // Layer name: GrabPassTexture1
     "Layer16": true,   // Layer name: CutEffectParticles
-    "Layer17": false,  // Layer name: HmdOnly (controlled by CameraUtils)
+    "Layer17": false,  // Layer name: ScreenDisplacement <--- Since 1.42.0
     "Layer18": false,  // Layer name: DesktopOnly (controlled by CameraUtils)
     "Layer19": true,   // Layer name: NonReflectedParticles
     "Layer20": true,   // Layer name: EnvironmentPhysics
