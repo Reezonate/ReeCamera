@@ -1,4 +1,5 @@
 ﻿# About
+
 ```diff
 - This is an early version with bare minimum UI in-game! 
 - All config changes are done by manually editing config files
@@ -6,16 +7,19 @@
 ```
 
 **ReeCamera** is a Beat Saber camera mod for video recording and streaming, featuring:
+
 - Separate presets for Menu/Gameplay scenes in VR/FPFC
 - Masks and true transparency for overlay cameras, such as Back/Side swing view cameras
 - Support for Spout2 output with multiple sources ([Plugin for OBS](https://github.com/Off-World-Live/obs-spout2-plugin))
-  - allows to completely bypass screen capture
-  - allows to record 4k/8k (or any other resolution) videos without a 4k/8k display
+    - allows to completely bypass screen capture
+    - allows to record 4k/8k (or any other resolution) videos without a 4k/8k display
 
 ![screenshot](Media/screenshot.png)
 
 # Built-in presets
+
 If you installed the mod properly, you can find these presets in the `UserData/ReeCamera/Presets/`
+
 1) `Nothing (0 Cameras).json` - Disables all desktop rendering. Since you won't be able to navigate the menu, **don't use this preset in FPFC**. Use case - saving performance in solo VR sessions (no video recording/streaming)
 2) `Simple (1 Camera).json` - Single smooth follow camera
 3) `Video (3 Cameras).json` - Smooth follow camera + back and side orthographic "swing view" cameras
@@ -29,7 +33,9 @@ If you installed the mod properly, you can find these presets in the `UserData/R
 4) Go to UserData folder and edit your config
 
 ## Main Config File `/UserData/ReeCamera.json`
+
 Change **only** when the game is closed, mod will override otherwise
+
 ```json
 {
   "MainMenuConfigVR": {
@@ -56,8 +62,10 @@ Change **only** when the game is closed, mod will override otherwise
 ```
 
 ## Scene preset `UserData/ReeCamera/Presets/<filename>.json`
+
 - See [built-in presets](https://github.com/Reezonate/ReeCamera/tree/master/DefaultPresets/) for more examples
 - To refresh press `Shift+Ctrl+F1` or click the `Reload` button
+
 ```json
 {
   "FormatVersion": 1,
@@ -71,6 +79,7 @@ Change **only** when the game is closed, mod will override otherwise
 ```
 
 ## Layout config:
+
 ```json
 {
   "IsVisible": true, // Only affects on-screen visibility, doesn't disable cameras and spout output.
@@ -115,8 +124,10 @@ Change **only** when the game is closed, mod will override otherwise
 }
 ```
 
-## Shared camera settings 
+## Shared camera settings
+
 Used for both Main and Secondary cameras
+
 ```json
 {
   "Name": "Bottom Left Camera (Back ortho view)",
@@ -151,7 +162,21 @@ Used for both Main and Secondary cameras
     },
     "ForceUpright": false, // Remove head tilt
     "PositionalSmoothing": 0.0, // less = more smoothing. But 0 = no smoothing :D
-    "RotationalSmoothing": 0.0
+    "RotationalSmoothing": 0.0,
+    "PositionCompensation": false, // Dynamic position offset. Forces camera to move to a target position
+    "PositionCompensationFrames": 60, // Sample size. Higher value == more freedom
+    "PositionCompensationTarget": {  // Target position
+      "x": 0.0,
+      "y": 1.75,
+      "z": 0.0
+    },
+    "RotationCompensation": false, // Dynamic rotation offset. Forces camera to look in a target direction
+    "RotationCompensationFrames": 60, // Sample size. Higher value == more freedom
+    "RotationCompensationTarget": { // Target rotation
+      "x": 10.0,
+      "y": 0.0,
+      "z": 0.0
+    }
   },
   "LayerFilter": { // Controls object layers visibility. Base game values are:
     "Layer0": true,    // Layer name: Default
