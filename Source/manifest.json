@@ -3,11 +3,11 @@
   "id": "ReeCamera",
   "name": "ReeCamera",
   "author": "Reezonate",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
-  "gameVersion": "1.42.0",
+  "gameVersion": "1.40.8",
   "dependsOn": {
     "BSIPA": "^4.0.5",
-    "CameraUtils": "^1.0.8"
+    "CameraUtils": "^1.0.7"
   }
 }

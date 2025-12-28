@@ -53,12 +53,25 @@ namespace ReeCamera {
 
         #region Movement
 
+        private ReeTransform _compensationPose = ReeTransform.Identity;
+        private CyclicBuffer<Vector3> _positionOffsets = new CyclicBuffer<Vector3>(1);
+        private CyclicBuffer<Quaternion> _rotationOffsets = new CyclicBuffer<Quaternion>(1);
+        
         private MovementConfig _movementConfig = MovementConfig.Default;
         private int _resetFrames;
 
         private void OnMovementConfigChanged(MovementConfig value, ObservableValueState state) {
             _movementConfig = value;
             _resetFrames = 5;
+            
+            if (PluginState.LaunchTypeOV.Value == LaunchType.FPFC && PluginState.SceneTypeOV.Value != SceneType.Gameplay) {
+                _movementConfig.PositionCompensation = false;
+                _movementConfig.RotationCompensation = false;
+            }
+            
+            _positionOffsets = new CyclicBuffer<Vector3>(_movementConfig.PositionCompensationFrames);
+            _rotationOffsets = new CyclicBuffer<Quaternion>(_movementConfig.RotationCompensationFrames);
+            _compensationPose = new ReeTransform(_movementConfig.PositionCompensationTarget, Quaternion.Euler(_movementConfig.RotationCompensationTarget));
         }
 
         private void UpdateMovement() {
@@ -158,8 +171,48 @@ namespace ReeCamera {
             _tempSmoothPose.Rotation = _movementConfig.RotationalSmoothing > 0
                 ? Quaternion.Lerp(_tempSmoothPose.Rotation, smoothPose.Rotation, Time.deltaTime * _movementConfig.RotationalSmoothing)
                 : smoothPose.Rotation;
-            
+
             _targetPose = _tempSmoothPose;
+
+            if (_movementConfig.PositionCompensation) {
+                var positionDiff = _compensationPose.Position - _tempSmoothPose.Position;
+                _positionOffsets.Add(positionDiff);
+                var averagePositionDiff = Vector3.zero;
+                for (var i = 0; i < _positionOffsets.Size; i++) {
+                    averagePositionDiff += _positionOffsets[i];
+                }
+
+                averagePositionDiff /= _positionOffsets.Size;
+
+                _targetPose.Position += averagePositionDiff;
+            }
+
+            if (_movementConfig.RotationCompensation) {
+                var rotationDiff = _compensationPose.Rotation * Quaternion.Inverse(_tempSmoothPose.Rotation);
+
+                _rotationOffsets.Add(rotationDiff);
+
+                var averageRotationDiff = _rotationOffsets[0];
+
+                for (var i = 1; i < _rotationOffsets.Size; i++) {
+                    var q = _rotationOffsets[i];
+
+                    if (Quaternion.Dot(averageRotationDiff, q) < 0f) {
+                        q = new Quaternion(-q.x, -q.y, -q.z, -q.w);
+                    }
+
+                    averageRotationDiff = new Quaternion(
+                        averageRotationDiff.x + q.x,
+                        averageRotationDiff.y + q.y,
+                        averageRotationDiff.z + q.z,
+                        averageRotationDiff.w + q.w
+                    );
+                }
+
+                averageRotationDiff = Quaternion.Normalize(averageRotationDiff);
+                _targetPose.Rotation = averageRotationDiff * _targetPose.Rotation;
+            }
+
             _targetPose.Position += _tempSmoothPose.Rotation * localOffset.Position;
         }
 

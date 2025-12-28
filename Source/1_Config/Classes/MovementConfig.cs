@@ -10,6 +10,14 @@ namespace ReeCamera {
         public bool ForceUpright;
         public float PositionalSmoothing;
         public float RotationalSmoothing;
+        
+        public bool PositionCompensation;
+        public int PositionCompensationFrames;
+        public Vector3 PositionCompensationTarget;
+        
+        public bool RotationCompensation;
+        public int RotationCompensationFrames;
+        public Vector3 RotationCompensationTarget;
 
         [JsonConstructor]
         public MovementConfig(int _) {
@@ -20,6 +28,14 @@ namespace ReeCamera {
             ForceUpright = false;
             PositionalSmoothing = 0.0f;
             RotationalSmoothing = 0.0f;
+
+            PositionCompensation = false;
+            PositionCompensationFrames = 60;
+            PositionCompensationTarget = new Vector3(0, 1.75f, 0);
+
+            RotationCompensation = false;
+            RotationCompensationFrames = 60;
+            RotationCompensationTarget = new Vector3(10, 0, 0);
         }
 
         public static MovementConfig Default => new MovementConfig(0);
