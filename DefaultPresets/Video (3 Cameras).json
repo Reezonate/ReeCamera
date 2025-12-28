@@ -1,6 +1,6 @@
 {
   "FormatVersion": 1,
-  "ModVersion": "0.0.1",
+  "ModVersion": "0.0.5",
   "Layouts": [
     {
       "IsVisible": true,
@@ -49,7 +49,21 @@
           },
           "ForceUpright": true,
           "PositionalSmoothing": 3.0,
-          "RotationalSmoothing": 2.0
+          "RotationalSmoothing": 2.0,
+          "PositionCompensation": false,
+          "PositionCompensationFrames": 60,
+          "PositionCompensationTarget": {
+            "x": 0.0,
+            "y": 1.75,
+            "z": 0.0
+          },
+          "RotationCompensation": false,
+          "RotationCompensationFrames": 60,
+          "RotationCompensationTarget": {
+            "x": 10.0,
+            "y": 0.0,
+            "z": 0.0
+          }
         },
         "LayerFilter": {
           "Layer0": true,
@@ -138,7 +152,21 @@
             },
             "ForceUpright": false,
             "PositionalSmoothing": 0.0,
-            "RotationalSmoothing": 0.0
+            "RotationalSmoothing": 0.0,
+            "PositionCompensation": false,
+            "PositionCompensationFrames": 60,
+            "PositionCompensationTarget": {
+              "x": 0.0,
+              "y": 1.75,
+              "z": 0.0
+            },
+            "RotationCompensation": false,
+            "RotationCompensationFrames": 60,
+            "RotationCompensationTarget": {
+              "x": 10.0,
+              "y": 0.0,
+              "z": 0.0
+            }
           },
           "LayerFilter": {
             "Layer0": false,
@@ -226,7 +254,21 @@
             },
             "ForceUpright": false,
             "PositionalSmoothing": 0.0,
-            "RotationalSmoothing": 0.0
+            "RotationalSmoothing": 0.0,
+            "PositionCompensation": false,
+            "PositionCompensationFrames": 60,
+            "PositionCompensationTarget": {
+              "x": 0.0,
+              "y": 1.75,
+              "z": 0.0
+            },
+            "RotationCompensation": false,
+            "RotationCompensationFrames": 60,
+            "RotationCompensationTarget": {
+              "x": 10.0,
+              "y": 0.0,
+              "z": 0.0
+            }
           },
           "LayerFilter": {
             "Layer0": false,

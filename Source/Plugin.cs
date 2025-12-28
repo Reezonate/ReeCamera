@@ -14,7 +14,7 @@ namespace ReeCamera {
         internal const string ResourcesPath = "ReeCamera._9_Resources";
         internal const string HarmonyId = "Reezonate.ReeCamera";
         internal const string FancyName = "ReeCamera";
-        internal const string ModVersion = "0.0.3";
+        internal const string ModVersion = "0.0.5";
 
         public static readonly string UserDataDirectory = Path.Combine(UnityGame.UserDataPath, "ReeCamera");
         public static readonly string MainConfigPath = Path.Combine(UnityGame.UserDataPath, "ReeCamera.json");
