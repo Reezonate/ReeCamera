@@ -1,0 +1,25 @@
+# Identical in every ReeCamera repo; the docs root holds the canonical copy.
+* text=auto eol=lf
+
+asset_bundle binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.tga binary
+*.tif binary
+*.tiff binary
+*.psd binary
+*.exr binary
+*.hdr binary
+*.fbx binary
+*.blend binary
+*.ttf binary
+*.otf binary
+*.wav binary
+*.mp3 binary
+*.ogg binary
+*.dll binary
+*.so binary
+*.bundle binary
+*.zip binary
+*.unitypackage binary
