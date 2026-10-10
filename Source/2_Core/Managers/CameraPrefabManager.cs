@@ -5,14 +5,14 @@ namespace ReeCamera {
     public class CameraPrefabManager : MonoBehaviour {
         private GameObject _cameraPrefabGameObject;
 
-        private readonly HashSet<string> _allowedComponents = [
+        private readonly HashSet<string> _allowedComponents = new HashSet<string> {
             "UnityEngine.Transform",
             "UnityEngine.Camera",
             "MainEffectController",
             "ImageEffectController",
             "BloomPrePass",
             "CameraUtils.Behaviours.AutoCameraRegistrator"
-        ];
+        };
 
         private void Start() {
             var tmp = GameObject.Find("SmoothCamera");

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Components;
 using HMUI;
@@ -49,7 +50,7 @@ namespace ReeCamera.UI {
 
         #region List
 
-        private IReadOnlyList<ISelectableOption> _options = [];
+        private IReadOnlyList<ISelectableOption> _options = Array.Empty<ISelectableOption>();
         private bool _listDirty = true;
 
         private void MarkListDirty() {

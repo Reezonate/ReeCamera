@@ -5,7 +5,7 @@
         <LocalRefsDir Condition="Exists('..\Refs')">..\Refs</LocalRefsDir>
         <BeatSaberDir>$(LocalRefsDir)</BeatSaberDir>
         <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
-        <LangVersion>latest</LangVersion>
+        <LangVersion>9.0</LangVersion>
         <Nullable>disable</Nullable>
     </PropertyGroup>
 

@@ -22,7 +22,7 @@ namespace ReeCamera {
             var framerateOVField = stateType.GetField("TargetFps", BindingFlags.Public | BindingFlags.Static);
             if (framerateOVField == null) return;
 
-            _setFramerateMethod = framerateOVField.FieldType.GetMethod("SetValue", [typeof(int), typeof(object)]);
+            _setFramerateMethod = framerateOVField.FieldType.GetMethod("SetValue", new[] { typeof(int), typeof(object) });
             if (_setFramerateMethod == null) return;
 
             _framerateOV = framerateOVField.GetValue(null);
@@ -33,7 +33,7 @@ namespace ReeCamera {
             
             const int minFPS = 1;
             if (value < minFPS) value = minFPS;
-            _setFramerateMethod.Invoke(_framerateOV, [value, _framerateOV]);
+            _setFramerateMethod.Invoke(_framerateOV, new object[] { value, _framerateOV });
         }
 
         #endregion
